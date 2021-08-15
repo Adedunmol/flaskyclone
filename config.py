@@ -20,6 +20,7 @@ class Config:
     FLASKY_COMMENTS_PER_PAGE = 15
     SQLALCHEMY_RECORD_QUERIES = True
     FLASKY_SLOW_DB_QUERY_TIME = 0.5
+    SSL_REDIRECT = False
 
     @staticmethod
     def init_app(app):
@@ -68,6 +69,7 @@ class ProductionConfig(Config):
 
 
 class HerokuConfig(ProductionConfig):
+    SSL_REDIRECT = True if os.environ.get('DYNO') else False
     @classmethod
     def init_app(cls, app):
         ProductionConfig.init_app(app)
