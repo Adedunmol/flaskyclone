@@ -27,9 +27,6 @@ def make_shell_context():
 @app.cli.command()
 def deploy():
     """ Run deployment tasks. """
-    #downgrade database
-    downgrade()
-
     # migrate database to the latest revision
     upgrade()
 
