@@ -2,8 +2,6 @@ import os
 import re
 import click
 import sys
-
-import flask_migrate
 from app import create_app, db, migrate
 from app.models import Permission, Post, Role, User
 from flask_migrate import upgrade
@@ -20,6 +18,12 @@ app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 migrate.init_app(app, db)
 
 
+
+@app.shell_context_processor
+def make_shell_context():
+    return dict(db=db, User=User, Role=Role, Permission=Permission, Post=Post)
+
+
 @app.cli.command()
 def deploy():
     """ Run deployment tasks. """
@@ -31,11 +35,6 @@ def deploy():
 
     # ensure users are following themselves
     User.add_self_follows()
-
-
-@app.shell_context_processor
-def make_shell_context():
-    return dict(db=db, User=User, Role=Role, Permission=Permission, Post=Post)
 
 
 @app.cli.command()
