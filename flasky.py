@@ -4,7 +4,7 @@ import click
 import sys
 from app import create_app, db, migrate
 from app.models import Permission, Post, Role, User
-from flask_migrate import upgrade
+from flask_migrate import upgrade, downgrade
 
 
 COV = None
@@ -27,6 +27,9 @@ def make_shell_context():
 @app.cli.command()
 def deploy():
     """ Run deployment tasks. """
+    #downgrade database if any
+    downgrade()
+
     # migrate database to the latest revision
     upgrade()
 
