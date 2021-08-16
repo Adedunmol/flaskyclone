@@ -1,5 +1,6 @@
 alembic==1.6.5
 blinker==1.4
+bleach==3.3.0
 click==8.0.1
 colorama==0.4.4
 dominate==2.6.0
