@@ -43,7 +43,7 @@ class TestingConfig(Config):
 class ProductionConfig(Config):
     uri = os.environ.get('DATABASE_URL')
     if uri.startswith('postgres://'):
-        SQLALCHEMY_DATABASE_URI = uri.replace('postgres://', 'postgresql', 1)
+        SQLALCHEMY_DATABASE_URI = uri.replace('postgres://', 'postgresql://', 1)
 
     @classmethod
     def init_app(cls, app):
